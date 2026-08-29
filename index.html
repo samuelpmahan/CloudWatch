@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>CloudWatch ☁️</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="viewer" id="viewer">
+      <video id="camera" playsinline autoplay muted></video>
+      <canvas id="overlay"></canvas>
+      <div class="brand">CloudWatch ☁️</div>
+      <div class="prompt" id="prompt">Start camera, then tap cloud base</div>
+    </section>
+
+    <section class="panel">
+      <div class="actions">
+        <button id="start">Start camera</button>
+        <button id="reset" class="secondary">Reset taps</button>
+      </div>
+
+      <div class="status" id="status">Waiting for sensors…</div>
+
+      <label>
+        Vertical camera FOV
+        <span id="fovValue">55°</span>
+        <input id="fov" type="range" min="35" max="80" value="55" step="1" />
+      </label>
+
+      <label>
+        Cloud-base uncertainty
+        <span id="uncValue">± 500 m</span>
+        <input id="unc" type="range" min="100" max="1500" value="500" step="50" />
+      </label>
+
+      <div class="results" id="results">
+        <div><span>Cloud base</span><strong>—</strong></div>
+        <div><span>Range</span><strong>—</strong></div>
+        <div><span>Width</span><strong>—</strong></div>
+        <div><span>Vertical extent</span><strong>—</strong></div>
+      </div>
+
+      <details>
+        <summary>What this PoC is doing</summary>
+        <p>Surface temperature and dew point estimate lifting-condensation-level cloud base. Your four taps plus phone pitch and camera field of view turn image positions into sight angles, then into approximate distance and size.</p>
+      </details>
+    </section>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
