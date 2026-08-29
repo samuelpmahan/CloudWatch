@@ -4,24 +4,38 @@ html, body { margin: 0; min-height: 100%; background: #020617; }
 body { min-height: 100dvh; }
 button, input { font: inherit; }
 .app { min-height: 100dvh; display: grid; grid-template-rows: minmax(52dvh, 1fr) auto; }
-.viewer { position: relative; overflow: hidden; background: linear-gradient(#0f172a,#1e293b); touch-action: manipulation; }
-#camera, #overlay { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-#overlay { z-index: 2; }
-.brand, .prompt { position: absolute; z-index: 3; left: 14px; right: 14px; padding: 10px 12px; border-radius: 14px; background: rgba(2,6,23,.58); backdrop-filter: blur(10px); }
+.viewer { position: relative; overflow: hidden; background: linear-gradient(#0f172a,#1e293b); touch-action: none; user-select: none; }
+#camera, #scene, #overlay { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+#scene { z-index: 1; visibility: hidden; }
+#overlay { z-index: 2; pointer-events: none; }
+.brand, .prompt { position: absolute; z-index: 5; left: 14px; right: 14px; padding: 10px 12px; border-radius: 14px; background: rgba(2,6,23,.58); backdrop-filter: blur(10px); }
 .brand { top: max(14px, env(safe-area-inset-top)); right: auto; font-weight: 800; }
 .prompt { bottom: 14px; text-align: center; }
+.reticle { position: absolute; z-index: 4; left: 50%; top: 50%; width: 54px; height: 54px; transform: translate(-50%,-50%); border: 2px solid rgba(255,255,255,.92); border-radius: 50%; pointer-events: none; filter: drop-shadow(0 1px 2px rgba(0,0,0,.85)); }
+.reticle::before, .reticle::after { content: ""; position: absolute; background: rgba(255,255,255,.95); }
+.reticle::before { width: 72px; height: 2px; left: 50%; top: 50%; transform: translate(-50%,-50%); }
+.reticle::after { width: 2px; height: 72px; left: 50%; top: 50%; transform: translate(-50%,-50%); }
+.reticle span { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: #fff; left: 50%; top: 50%; transform: translate(-50%,-50%); box-shadow: 0 0 0 2px rgba(2,6,23,.75); }
 .panel { padding: 16px 16px calc(18px + env(safe-area-inset-bottom)); background: #0f172a; border-top: 1px solid #334155; }
 .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-button { border: 0; border-radius: 14px; padding: 13px 14px; font-weight: 750; background: #f8fafc; color: #0f172a; }
+.actions.compact { margin-top: 10px; }
+button { border: 0; border-radius: 14px; padding: 13px 14px; font-weight: 750; background: #f8fafc; color: #0f172a; min-height: 48px; }
 button.secondary { background: #1e293b; color: #f8fafc; border: 1px solid #475569; }
-.status { margin: 12px 0 16px; color: #cbd5e1; font-size: .92rem; }
+button.mark { width: 100%; margin-top: 10px; font-size: 1.05rem; }
+button:disabled { opacity: .45; }
+.status { margin: 12px 0 6px; color: #cbd5e1; font-size: .92rem; }
+.hint { color: #94a3b8; font-size: .84rem; line-height: 1.4; margin-bottom: 10px; }
 label { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; margin: 13px 0; color: #e2e8f0; }
 label input { grid-column: 1 / -1; width: 100%; }
 .results { margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.results div { padding: 13px; border-radius: 14px; background: #111c30; border: 1px solid #334155; }
+.results div { padding: 13px; border-radius: 14px; background: #111c30; border: 1px solid #334155; min-width: 0; }
 .results span, .results strong { display: block; }
 .results span { color: #94a3b8; font-size: .8rem; margin-bottom: 4px; }
-.results strong { font-size: 1.05rem; }
+.results strong { font-size: 1.05rem; overflow-wrap: anywhere; }
+.receipt { margin-top: 18px; padding-top: 14px; border-top: 1px solid #334155; }
+.receipt h2 { font-size: 1rem; margin: 0 0 4px; }
+.receipt p { color: #94a3b8; font-size: .84rem; margin: 0 0 10px; line-height: 1.4; }
+#receipt { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid #334155; background: #020617; }
 details { margin-top: 14px; color: #cbd5e1; }
 details p { line-height: 1.45; }
 @media (min-width: 760px) { .app { grid-template-columns: 2fr 1fr; grid-template-rows: 100dvh; } .panel { overflow: auto; border-top: 0; border-left: 1px solid #334155; padding-top: 28px; } }
