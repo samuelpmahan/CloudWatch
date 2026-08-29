@@ -11,18 +11,27 @@
   <main class="app">
     <section class="viewer" id="viewer">
       <video id="camera" playsinline autoplay muted></video>
+      <canvas id="scene"></canvas>
       <canvas id="overlay"></canvas>
       <div class="brand">CloudWatch ☁️</div>
-      <div class="prompt" id="prompt">Start camera, then tap the horizon</div>
+      <div class="reticle" aria-hidden="true"><span></span></div>
+      <div class="prompt" id="prompt">Start camera</div>
     </section>
 
     <section class="panel">
       <div class="actions">
         <button id="start">Start camera</button>
-        <button id="reset" class="secondary">Reset taps</button>
+        <button id="freeze" class="secondary" disabled>Freeze scene</button>
       </div>
 
+      <button id="mark" class="mark" disabled>Mark horizon</button>
       <div class="status" id="status">Waiting for camera + location…</div>
+      <div class="hint" id="hint">Get the cloud and a visible horizon in frame. Freeze once, then drag the photo under the crosshair and mark each target.</div>
+
+      <div class="actions compact">
+        <button id="undo" class="secondary" disabled>Undo mark</button>
+        <button id="reset" class="secondary">New measurement</button>
+      </div>
 
       <label>
         Visible vertical camera FOV
@@ -43,9 +52,15 @@
         <div><span>Vertical extent</span><strong>—</strong></div>
       </div>
 
+      <section class="receipt" id="receiptSection" hidden>
+        <h2>Measurement receipt</h2>
+        <p>One frozen frame, all five marks. If this picture looks wrong, the estimate is wrong.</p>
+        <canvas id="receipt"></canvas>
+      </section>
+
       <details>
         <summary>What this PoC is doing</summary>
-        <p>Tap the visible horizon, then the cloud base, top, left edge, and right edge. The horizon gives a real 0° elevation reference in the camera frame, avoiding flaky browser phone-pitch sensors. Surface temperature and dew point estimate lifting-condensation-level cloud base; camera geometry then estimates range and size.</p>
+        <p>The camera freezes one scene containing the horizon and cloud. Instead of covering targets with your finger, drag that frozen image beneath the fixed crosshair and mark horizon, base, top, left, and right. Because every mark belongs to one image, camera geometry remains valid and CloudWatch can render the exact measurement back as an annotated receipt.</p>
       </details>
     </section>
   </main>
