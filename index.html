@@ -13,7 +13,7 @@
       <video id="camera" playsinline autoplay muted></video>
       <canvas id="overlay"></canvas>
       <div class="brand">CloudWatch ☁️</div>
-      <div class="prompt" id="prompt">Start camera, then tap cloud base</div>
+      <div class="prompt" id="prompt">Start camera, then tap the horizon</div>
     </section>
 
     <section class="panel">
@@ -22,10 +22,10 @@
         <button id="reset" class="secondary">Reset taps</button>
       </div>
 
-      <div class="status" id="status">Waiting for sensors…</div>
+      <div class="status" id="status">Waiting for camera + location…</div>
 
       <label>
-        Vertical camera FOV
+        Visible vertical camera FOV
         <span id="fovValue">55°</span>
         <input id="fov" type="range" min="35" max="80" value="55" step="1" />
       </label>
@@ -45,7 +45,7 @@
 
       <details>
         <summary>What this PoC is doing</summary>
-        <p>Surface temperature and dew point estimate lifting-condensation-level cloud base. Your four taps plus phone pitch and camera field of view turn image positions into sight angles, then into approximate distance and size.</p>
+        <p>Tap the visible horizon, then the cloud base, top, left edge, and right edge. The horizon gives a real 0° elevation reference in the camera frame, avoiding flaky browser phone-pitch sensors. Surface temperature and dew point estimate lifting-condensation-level cloud base; camera geometry then estimates range and size.</p>
       </details>
     </section>
   </main>
